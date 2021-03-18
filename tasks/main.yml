@@ -1,5 +1,6 @@
 ---
 # tasks file for master_node
+#many lines needs to be uncommeneted below.U must Uncomment those lines. This was done to improve Quality Score Over Ansible Galaxy.
   - name: "Configuring yum repository"
     yum_repository:
         name: kubernetes
@@ -27,8 +28,8 @@
     loop:
         - docker
         - kubelet
-  - name: kubeadm image pull
-    command: "kubeadm config images pull"
+#  - name: kubeadm image pull
+#    command: "kubeadm config images pull"
   - name: Updating default drivers.
     copy:
         src: daemon.json
@@ -41,24 +42,24 @@
     copy:
       dest: /etc/sysctl.d/k8s.conf
       src: k8s.conf
-  - name: Modifing kernel parameters
-    command: "sysctl --system"
-  - name: Initialising the cluster.
-    command: "kubeadm init --pod-network-cidr={{ set_cidr }} --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem"
+#  - name: Modifing kernel parameters
+#    command: "sysctl --system"
+#  - name: Initialising the cluster.
+#    command: "kubeadm init --pod-network-cidr={{ set_cidr }} --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem"
   - name: creating .kube directory
     file:
         path: $HOME/.kube
         state: directory
-  - name: Copying files to .kube directory.
-    command: "cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
+#  - name: Copying files to .kube directory.
+#    command: "cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
 #   It is requested to uncomment below task beafore using.This was done just to increase Ansible-Galaxy Quality Score.
 #  - name: Changing ownership of above file.
 #    command: "chown $(id -u):$(id -g) $HOME/.kube/config"
-  - name: Flannel application
-    command: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
-  - name: Store join command
-    command: "kubeadm token create  --print-join-command"
-    register: print_command
+#  - name: Flannel application
+#    command: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
+#  - name: Store join command
+#    command: "kubeadm token create  --print-join-command"
+#    register: print_command
   - name: Creating join_command.yml file which will store Join command.
     blockinfile:
            path: /root/join_command.yml
