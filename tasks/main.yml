@@ -69,4 +69,3 @@
            src: /root/join_command.yml
            dest: worker_node/vars/main.yml
            flat: yes
-
