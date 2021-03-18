@@ -50,13 +50,13 @@
         path: $HOME/.kube
         state: directory
   - name: Copying files to .kube directory.
-    shell: "cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
+    command: "cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
   - name: Changing ownership of above file.
-    shell: "chown $(id -u):$(id -g) $HOME/.kube/config"
+    command: "chown $(id -u):$(id -g) $HOME/.kube/config"
   - name: Flannel application
-    shell: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
+    command: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
   - name: Store join command
-    shell: "kubeadm token create  --print-join-command"
+    command: "kubeadm token create  --print-join-command"
     register: print_command
   - name: Creating join_command.yml file which will store Join command.
     blockinfile:
